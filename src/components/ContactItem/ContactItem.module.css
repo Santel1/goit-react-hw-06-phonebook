@@ -6,7 +6,14 @@
   gap: 10px;
   background-color: burlywood;
   border-radius: 20px;
+  transition: all 0.3s;
 }
+
+.contactItem:hover {
+  cursor: pointer;
+  transform: scale(1.03);
+}
+
 .contactItemText {
   font-size: 17px;
 }
@@ -14,12 +21,18 @@
   padding: 8px;
   border-radius: 20px;
   width: 200px;
-  border: 1px solid black;
+  border: none;
   cursor: pointer;
   outline: none;
+  transition: all 0.3s;
 }
 
 .contactItemBtn:hover,
 .contactItemBtn:focus {
-  background-color: blanchedalmond;
+  background-color: rgb(255, 0, 0);
+  color: white;
+}
+
+.contactImage {
+  width: 100px;
 }

@@ -17,6 +17,7 @@
   border-radius: 20px;
   border: 1px solid black;
   margin: 0;
+  transition: all 0.3s;
 }
 
 .phonebookInput:hover,
@@ -32,6 +33,7 @@
   border: 1px solid black;
   cursor: pointer;
   outline: none;
+  transition: all 0.3s;
 }
 
 .phonebookBtn:hover,
