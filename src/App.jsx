@@ -2,7 +2,6 @@ import { ContactsList } from 'components/ContactList/ContactsList';
 import { Filter } from 'components/Filter/Filter';
 import { Phonebook } from 'components/Phonebook/Phonebook';
 import { Title } from 'components/Title/Title';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact, deleteContact, setFilter } from 'redux/phonebookReducer';
 

@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import { setError, setName, setNumber } from 'redux/phonebookReducer';
 import css from './Phonebook.module.css';
 import { useDispatch, useSelector } from 'react-redux';
