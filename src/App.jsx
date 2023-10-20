@@ -2,42 +2,34 @@ import { ContactsList } from 'components/ContactList/ContactsList';
 import { Filter } from 'components/Filter/Filter';
 import { Phonebook } from 'components/Phonebook/Phonebook';
 import { Title } from 'components/Title/Title';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact, deleteContact, setFilter } from 'redux/phonebookReducer';
 
 export const App = () => {
-  const [contactsState, setContactsState] = useState(
-    JSON.parse(localStorage.getItem('contacts')) ?? []
-  );
-  const [filterState, setFilterState] = useState('');
-
-  useEffect(() => {
-    const stringifyContacts = JSON.stringify(contactsState);
-    localStorage.setItem('contacts', stringifyContacts);
-  }, [contactsState]);
+  const phonebookContacts = useSelector(state => state.phonebook.contacts);
+  const phonebookFilter = useSelector(state => state.phonebook.filter);
+  const dispatch = useDispatch();
 
   const handleAddContact = contactData => {
-    if (contactsState.some(contact => contact.name === contactData.name)) {
+    if (phonebookContacts.some(contact => contact.name === contactData.name)) {
       alert(`${contactData.name} is already in contacts`);
       return;
     }
 
-    setContactsState(prevState => {
-      return [...prevState, contactData];
-    });
+    dispatch(addContact(contactData));
   };
 
   const handleFilterChange = event => {
-    setFilterState(event.target.value);
+    dispatch(setFilter(event.target.value));
   };
 
   const handleDeleteContacts = contactName => {
-    setContactsState(prevState => {
-      return prevState.filter(contact => contact.name !== contactName);
-    });
+    dispatch(deleteContact(contactName));
   };
 
-  const filteredContacts = contactsState.filter(contact =>
-    contact.name.toLowerCase().includes(filterState.toLowerCase())
+  const filteredContacts = phonebookContacts.filter(contact =>
+    contact.name.toLowerCase().includes(phonebookFilter.toLowerCase())
   );
 
   return (
@@ -45,7 +37,7 @@ export const App = () => {
       <Title>Phonebook</Title>
       <Phonebook handleAddContact={handleAddContact} />
       <Title>Contacts</Title>
-      <Filter filter={filterState} onFilterChange={handleFilterChange} />
+      <Filter filter={phonebookFilter} onFilterChange={handleFilterChange} />
       <ContactsList
         filteredContacts={filteredContacts}
         handleDeleteContacts={handleDeleteContacts}

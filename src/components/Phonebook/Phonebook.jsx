@@ -1,30 +1,35 @@
-import { useState } from 'react';
+// import { useState } from 'react';
+import { setError, setName, setNumber } from 'redux/phonebookReducer';
 import css from './Phonebook.module.css';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const Phonebook = ({ handleAddContact }) => {
-  const [nameState, setNameState] = useState('');
-  const [numberState, setNumberState] = useState('');
-  const [errorState, setErrorState] = useState(false);
+  const phonebookName = useSelector(state => state.phonebook.name);
+  const phonebookNumber = useSelector(state => state.phonebook.number);
+  const phonebookError = useSelector(state => state.phonebook.error);
+  const dispatch = useDispatch();
 
   const handleNumberChange = event => {
-    setNumberState(event.target.value);
+    dispatch(setNumber(event.target.value));
   };
+
   const handleNameChange = event => {
-    setNameState(event.target.value);
+    dispatch(setName(event.target.value));
   };
+
   const handleSubmit = event => {
     event.preventDefault();
     const contactData = {
-      name: nameState,
-      number: Number.parseInt(numberState),
+      name: phonebookName,
+      number: Number.parseInt(phonebookNumber),
     };
     if (isNaN(contactData.number)) {
-      return setErrorState('Please write number');
+      return dispatch(setError('Please write number'));
     }
     handleAddContact(contactData);
-    setNameState('');
-    setNumberState('');
-    setErrorState(false);
+    dispatch(setNumber(''));
+    dispatch(setName(''));
+    dispatch(setError(false));
   };
 
   return (
@@ -34,7 +39,7 @@ export const Phonebook = ({ handleAddContact }) => {
         <input
           className={css.phonebookInput}
           onChange={handleNameChange}
-          value={nameState}
+          value={phonebookName}
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -44,13 +49,13 @@ export const Phonebook = ({ handleAddContact }) => {
       </label>
       <label className={css.phonebookLabel}>
         <span className={css.phonebookText}>Number</span>
-        {errorState && (
-          <span className={css.phonebookTextError}>{errorState}</span>
+        {phonebookError && (
+          <span className={css.phonebookTextError}>{phonebookError}</span>
         )}
         <input
           className={css.phonebookInput}
           onChange={handleNumberChange}
-          value={numberState}
+          value={phonebookNumber}
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
