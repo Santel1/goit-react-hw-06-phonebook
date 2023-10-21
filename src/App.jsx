@@ -33,9 +33,9 @@ export const App = () => {
 
   return (
     <div>
-      <Title>Phonebook</Title>
+      <Title title={'Phonebook'} />
       <Phonebook handleAddContact={handleAddContact} />
-      <Title>Contacts</Title>
+      <Title title={'Contacts'} />
       <Filter filter={phonebookFilter} onFilterChange={handleFilterChange} />
       <ContactsList
         filteredContacts={filteredContacts}

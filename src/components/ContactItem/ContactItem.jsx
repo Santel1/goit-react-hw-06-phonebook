@@ -1,5 +1,5 @@
 import css from './ContactItem.module.css';
-export const ContactItem = props => {
+export const ContactItem = ({ name, number, handleDeleteContacts }) => {
   return (
     <div className={css.contactItemContainer}>
       <li className={css.contactItem}>
@@ -8,10 +8,10 @@ export const ContactItem = props => {
           src="https://icons.veryicon.com/png/o/education-technology/technology-big-data-visualization/user-149.png"
           alt="user-logo"
         />
-        <span className={css.contactItemText}>{props.name}</span>
-        <span className={css.contactItemText}>{props.number}</span>
+        <span className={css.contactItemText}>{name}</span>
+        <span className={css.contactItemText}>{number}</span>
         <button
-          onClick={() => props.handleDeleteContacts(props.name)}
+          onClick={() => handleDeleteContacts(name)}
           className={css.contactItemBtn}
         >
           Delete
